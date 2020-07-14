@@ -52,25 +52,27 @@ app.post("/api/notes", function (req, res) {
     });
 });
 
-app.delete('/api/notes/:id'), function(req, res) {
+
+//Delete function
+app.delete('/api/notes/:id', function(req, res) {
    fs.readFile(path.join(__dirname + "/db/db.json"), 'utf-8', function (err, dbJSON) {
         if (err) throw err;
         let key = req.params.id
         var data = JSON.parse(dbJSON)
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id == key) {
+                data.splice(i, 1);
+                console.log(data)
+            }   
+        }
+        //Write new spliced JSON to the db.JSON file
+        fs.writeFile(path.join(__dirname + "/db/db.json"), JSON.stringify(data, null, 2), 'utf-8', function(err){
+            if (err) throw err 
+            res.sendStatus(200);
+        })
     })
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].id == key) {
-            data.splice(i, 1);
-            console.log(data)
-        }   
-    }
-    //Write new spliced JSON to the db.JSON file
-    fs.writeFile(path.join(__dirname + "/db/db.json"), JSON.stringify(data, null, 2), 'utf8', function(err){
-        if (err) throw err 
-        res.sendStatus(200);
-    })
-    
-}
+})
 
 app.listen(PORT, function() {
     console.log('App listening on PORT' + PORT)
