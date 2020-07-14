@@ -53,15 +53,21 @@ app.post("/api/notes", function (req, res) {
 });
 
 app.delete('/api/notes/:id'), function(req, res) {
-    let savedNotes = fs.readFile(path.join(__dirname + "/db/db.json"), 'utf-8', function (err) {
+   fs.readFile(path.join(__dirname + "/db/db.json"), 'utf-8', function (err, dbJSON) {
         if (err) throw err;
-        // let deleteID = 
-        for (let i = 0; i < savedNotes.length; i++) {
-            if(id[i] === req.params.id) {
-                
-            }
-            
-        }
+        let key = req.params.id
+        var data = JSON.parse(dbJSON)
+    })
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id == key) {
+            data.splice(i, 1);
+            console.log(data)
+        }   
+    }
+    //Write new spliced JSON to the db.JSON file
+    fs.writeFile(path.join(__dirname + "/db/db.json"), JSON.stringify(data, null, 2), 'utf8', function(err){
+        if (err) throw err 
+        res.sendStatus(200);
     })
     
 }
@@ -113,3 +119,19 @@ app.listen(PORT, function() {
     //         if (err) throw err;
     //     })
     // })
+
+    
+    // // let indexToBeRemoved;
+    // for (let i = 0; i < savedNotes.length; i++) {
+    //     if(id[i] === req.params.id) {
+    //         // indexToBeRemoved = i;
+
+    //         var removedNote = savedNotes.splice([i])
+    //         return removedNote
+    //     }
+        
+    // }
+    // fs.writeFile(path.join(__dirname + "/db/db.json"), removedNote, "utf8", function (err) {
+    //     if (err) throw err;
+    //     res.sendStatus(200)
+    // });
