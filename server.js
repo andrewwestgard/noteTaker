@@ -9,7 +9,7 @@ notesArr = [];
 //require index.js
 
 const app = express()
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
@@ -70,6 +70,7 @@ app.delete('/api/notes/:id', function(req, res) {
         fs.writeFile(path.join(__dirname + "/db/db.json"), JSON.stringify(data, null, 2), 'utf-8', function(err){
             if (err) throw err 
             res.sendStatus(200);
+            console.log(key)
         })
     })
 })
