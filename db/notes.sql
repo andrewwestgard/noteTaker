@@ -7,8 +7,3 @@ CREATE TABLE notes (
     noteBody VARCHAR (500),
     PRIMARY KEY(id)
 );
-
-
-INSERT INTO notes VALUES (1, 'homework', 'i need to do it');
-INSERT INTO notes VALUES (3, 'homework', 'i need to do it');
-INSERT INTO notes VALUES (4, 'homework', 'i need to do it');
