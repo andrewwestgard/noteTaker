@@ -49,13 +49,14 @@ const renderActiveNote = () => {
     $noteTitle.val("");
     $noteText.val("");
   }
+  
 };
 
 // Get the note data from the inputs, save it to the db and update the view
 const handleNoteSave = function () {
   const newNote = {
-    title: $noteTitle.val(),
-    text: $noteText.val(),
+    noteTitle: $noteTitle.val(),
+    noteBody: $noteText.val(),
   };
 
   saveNote(newNote).then(() => {
@@ -135,7 +136,7 @@ const renderNoteList = (notes) => {
   }
 
   notes.forEach((note) => {
-    const $li = create$li(note.noteTitle).data(note);
+    const $li = create$li(note.noteBody).data(note);
     noteListItems.push($li);
   });
 
