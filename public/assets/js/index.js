@@ -136,7 +136,7 @@ const renderNoteList = (notes) => {
   }
 
   notes.forEach((note) => {
-    const $li = create$li(note.noteBody).data(note);
+    const $li = create$li(note.noteBody, note.noteTitle).data(note);
     noteListItems.push($li);
   });
 
